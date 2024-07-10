@@ -5,4 +5,6 @@
     <string name="telefonoEditText">Telefono</string>
     <string name="direccionEditText">Direccion</string>
     <string name="buttonGuardar">Guardar</string>
+    <string name="imageViewButton">Tomar foto</string>
+    <string name="imageViewText">Image view image text description</string>
 </resources>

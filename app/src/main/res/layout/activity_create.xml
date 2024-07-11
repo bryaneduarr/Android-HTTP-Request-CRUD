@@ -23,41 +23,37 @@
         android:id="@+id/nombreEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:autofillHints="nombre"
-        android:inputType="text"
+        android:ems="10"
         android:hint="@string/nombreEditText"
-        android:text="@string/nombreEditText" />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/apellidoEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:autofillHints="apellido"
-        android:inputType="text"
+        android:ems="10"
         android:hint="@string/apellidoEditText"
-        android:text="@string/apellidoEditText" />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/telefonoEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:autofillHints="telefono"
-        android:inputType="text"
+        android:ems="10"
         android:hint="@string/telefonoEditText"
-        android:text="@string/telefonoEditText" />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/direccionEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:autofillHints="direccion"
-        android:inputType="text"
+        android:ems="10"
         android:hint="@string/direccionEditText"
-        android:text="@string/direccionEditText" />
+        android:inputType="text" />
 
     <Button
         android:id="@+id/buttonGuardar"

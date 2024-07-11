@@ -33,7 +33,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.http_request_crud.Config.RestApiMethods;
 import com.example.http_request_crud.Models.Personas;
 
 import org.json.JSONObject;
@@ -88,7 +87,27 @@ public class ActivityCreate extends AppCompatActivity {
     buttonGuardar.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+        try {
+          String nombreText = nombres.getText().toString();
+          String apellidoText = apellidos.getText().toString();
+          String telefonoText = telefono.getText().toString();
+          String direccionText = direccion.getText().toString();
+          String fotoBase64 = ConvertImageBase64(currentPhotoPath);
 
+          JSONObject jsonObject = new JSONObject();
+          jsonObject.put("nombres", nombreText);
+          jsonObject.put("apellidos", apellidoText);
+          jsonObject.put("telefono", telefonoText);
+          jsonObject.put("direccion", direccionText);
+          jsonObject.put("foto", fotoBase64);
+
+          Log.d("Datos", jsonObject.toString());
+
+          SendDataCreate(nombreText, apellidoText, telefonoText, direccionText, fotoBase64);
+
+        } catch (Exception error) {
+          Log.e("Error", "Error al crear el JSON: " + error.toString());
+        }
       }
     });
   }
@@ -164,33 +183,36 @@ public class ActivityCreate extends AppCompatActivity {
     }
   }
 
-  private void SendDataCreate() {
+  private void SendDataCreate(String nombreText, String apellidoText, String telefonoText, String direccionText, String fotoBase64) {
     requestQueue = Volley.newRequestQueue(this);
-    Personas person = new Personas();
+    // Personas person = new Personas();
 
+    /*
     person.setNombres(nombres.getText().toString());
     person.setNombres(apellidos.getText().toString());
     person.setNombres(telefono.getText().toString());
     person.setNombres(direccion.getText().toString());
     person.setFoto(ConvertImageBase64(currentPhotoPath));
+     */
 
     JSONObject jsonObject = new JSONObject();
 
     try {
-      jsonObject.put("nombres", person.getNombres());
-      jsonObject.put("apellidos", person.getApellido());
-      jsonObject.put("telefono", person.getTelefono());
-      jsonObject.put("direccion", person.getDireccion());
-      jsonObject.put("foto", person.getFoto());
+      jsonObject.put("nombres", nombreText);
+      jsonObject.put("apellidos", apellidoText);
+      jsonObject.put("telefono", telefonoText);
+      jsonObject.put("direccion", direccionText);
+      jsonObject.put("foto", fotoBase64);
     } catch (Exception error) {
       Log.d("Error Response", error.toString());
     }
 
-    JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, RestApiMethods.EndPointGET, jsonObject, new Response.Listener<JSONObject>() {
+    JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, "http://10.0.2.2/programacion-movil-1-php-crud-parcial-2/peticiones-http/CreatePerson.php", jsonObject, new Response.Listener<JSONObject>() {
       @Override
       public void onResponse(JSONObject response) {
         try {
           String message = response.toString();
+          Log.d("Response", message);
         } catch (Exception error) {
           Log.d("Error Response", error.toString());
         }
@@ -198,9 +220,11 @@ public class ActivityCreate extends AppCompatActivity {
     }, new Response.ErrorListener() {
       @Override
       public void onErrorResponse(VolleyError error) {
-
+        Log.d("Error Response", error.toString());
       }
     });
+
+    requestQueue.add(stringRequest);
   }
 
   /*private void SendData() {
